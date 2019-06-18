@@ -1,0 +1,42 @@
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+ENVIRONMENT DIVISION.
+   INPUT-OUTPUT SECTION.
+      FILE-CONTROL.
+      SELECT STUDENT ASSIGN TO DDNAME1
+      ORGANIZATION IS LINE SEQUENTIAL.            
+
+DATA DIVISION.
+   FILE SECTION.
+   FD STUDENT.
+   01 STUDENT-FILE.
+      05 STUDENT-ID PIC 9(5).
+      05 NAME PIC A(25).
+
+   WORKING-STORAGE SECTION.
+   01 WS-STUDENT.
+      05 WS-STUDENT-ID PIC 9(5).
+      05 WS-NAME PIC A(25).
+   01 WS-EOF PIC A(1). 
+
+PROCEDURE DIVISION.
+   OPEN INPUT STUDENT.
+   MOVE 'N' TO WS-EOF.
+      PERFORM UNTIL WS-EOF='Y'
+         READ STUDENT INTO WS-STUDENT
+            AT END 
+               MOVE 'Y' TO WS-EOF
+            NOT AT END
+               IF STUDENT-ID = '12345'
+                  DISPLAY 'NEW STUDENT'
+               ELSE
+                  IF STUDENT-ID > '12345'
+                     DISPLAY 'OLD STUDENT'
+                  ELSE 
+                     MOVE '12345' TO STUDENT-ID
+                  END-IF
+               END-IF
+         END-READ
+      END-PERFORM.
+   CLOSE STUDENT.
+STOP RUN.

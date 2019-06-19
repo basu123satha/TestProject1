@@ -178,6 +178,7 @@
               DISPLAY 'NO MATCH, CANNOT CHANGE/DELETE'
               DISPLAY TRANS-RECORD
               DISPLAY SPACES
+              DISPLAY SPACES
            END-IF.
        TR-GREATER-THAN-OM.
            PERFORM JUST-MOVE-OM-TO-WORK
